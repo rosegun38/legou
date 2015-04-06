@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 from oscar import get_core_apps
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,6 +71,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'oscar.apps.checkout.context_processors.checkout',
     'oscar.apps.customer.notifications.context_processors.notifications',
     'oscar.core.context_processors.metadata',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'oscar.apps.customer.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'legou.urls'
@@ -138,5 +144,12 @@ OSCAR_ORDER_STATUS_PIPELINE = {
     'Being processed': ('Processed', 'Cancelled',),
     'Cancelled': (),
 }
+
+# Email settings
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+# Picture setting for thumbnail
+THUMBNAIL_DEBUG = True
 
 from oscar.defaults import *
